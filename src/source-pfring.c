@@ -355,6 +355,10 @@ TmEcode ReceivePfringLoop(ThreadVars *tv, void *data, void *slot)
         }
 
         if (likely(r == 1)) {
+            /* profiling started before blocking pfring_recv call, so
+             * reset it here */
+            PACKET_PROFILING_RESTART(p);
+
             //printf("RecievePfring src %" PRIu32 " sport %" PRIu32 " dst %" PRIu32 " dstport %" PRIu32 "\n",
             //        hdr.parsed_pkt.ipv4_src,hdr.parsed_pkt.l4_src_port, hdr.parsed_pkt.ipv4_dst,hdr.parsed_pkt.l4_dst_port);
 
